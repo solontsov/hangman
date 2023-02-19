@@ -1,22 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+
+import Hangman from './components/Hangman';
+import Word from './components/Word';
+import Alphabet from './components/Alphabet';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Hangman game</h1>
+        {/* TODO:  add button HELP, RESTART */}
+        <Word />
+        <Hangman />
+        
+        {/* depending on state show Alphabet or Win/Lost message TODO: */} 
+        <Alphabet />
       </header>
     </div>
   );
