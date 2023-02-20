@@ -1,67 +1,67 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { words } from '../words';
+import { maxNumberOfErrors } from '../components/Hangman'
+
+const getInitialState = () => {
+    // the word randomly chosen from dictionary TODO:
+    const secretWord = words[23];
+
+    return {
+        secretWord: secretWord, // the word to guess
+        lettersUsed: "", // letter user clicked
+        numberOfErrors: 0, // number of letter user clicked that are missing in the the secretWord
+        gameResult: "", // empty string when the game is not finished, "You won!", "You lost!"
+    }
+}
 
 export const hangmanSlice = createSlice({
     name: "hangman",
 
-    initialState: {
-        nextId: 3,
-        data:
-        {
-            1: {
-                content: 'Content 1',
-                completed: false
-            },
-            2: {
-                content: 'Content 2',
-                completed: true
-            }
-        },
-        editingId: 0, //if 0 editing form is closed, otherwise item with this id is being edited
-    },
+    initialState: getInitialState(),
 
     reducers: {
-        hangmanAdd: (state) => {
-            state.editingId = state.nextId; //open form to enter new item    
+        // restarts the game
+        hangmanRestart: (state) => {
+            state = getInitialState();
         },
 
-        // deletes item with specified id
-        hangmanDelete: (state, action) => {
-            delete state.data[action.payload]; 
+        // change the state properties that depend on selected letter (action.payload)
+        hangmanSelectLetter: (state, action) => {
+            const letter = action.payload;
+            // if such letter was used then there is no need to process
+            if (!state.lettersUsed.includes(letter)) {
+                state.lettersUsed += letter;  //add to the string of used letters  
+
+                //evaluate gameResult and numberOfErrors
+                if (state.secretWord.includes(letter)) {
+                    // checking result
+                    for (let index = 0; index < state.secretWord.length; index++) {
+                        const currentSecretWordLetter = state.secretWord[index];
+                        //each letter of secretWord should be in lettersUsed
+                        if (!state.lettersUsed.includes(currentSecretWordLetter)) {
+                            break; //not all letters found
+                        }
+                        if (index === state.secretWord.length) {
+                            // the last letter of secretWord passed the test => the word is guessed 
+                            state.gameResult = "You won!";
+                        }
+                    }
+                } else {
+                    // increment numberOfErrors
+                    state.numberOfErrors += 1;
+                    if (state.numberOfErrors === maxNumberOfErrors) {
+                        state.gameResult = "You lost!";
+                    }
+                }
+
+            }
         },
 
-        hangmanCompleted: (state, action) => {
-            //invert "completed" property
-            state.data[action.payload].completed = !state.data[action.payload].completed;
-        }, 
 
-        //opens form for editing the item with specified id
-        hangmanEdit: (state, action) => {
-            state.editingId = action.payload;
-        },
-        
-        // creates new item (editingId==nextId) or saves content of edited item (editingId!=nextId),
-        // content is in action.payload
-        hangmanSave: (state, action) => {
-            if (state.nextId === state.editingId) {
-                state.data[state.nextId] = {
-                    content: action.payload,
-                    completed: false
-                };
-                state.nextId += 1;
-            } 
-            else {
-                state.data[state.editingId].content = action.payload;
-            } 
-            state.editingId = 0; //close form
-        },
-        // cancels editing
-        hangmanCancel: (state) => {
-            state.editingId = 0; //close form
-        }
 
     },
 });
 
-export const {hangmanAdd, hangmanDelete, hangmanCompleted, hangmanEdit, hangmanSave, hangmanCancel} = hangmanSlice.actions;
+export const { hangmanRestart, hangmanSelectLetter } = hangmanSlice.actions;
 
 export default hangmanSlice.reducer;

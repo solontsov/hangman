@@ -13,6 +13,7 @@ import img11 from '../images/state11.gif';
 
 // Array of images
 const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11];
+export const maxNumberOfErrors = images.length - 1; //
 
 function Hangman(){
     return (
