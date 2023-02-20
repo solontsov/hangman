@@ -2,8 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## In order to
+## In order to run it on your computer you need [nodejs] (https://nodejs.org/en/) installed
 
+Clone repository or download and unzip source code.
 In the project directory, you can run:
 
 ### `npm start`
