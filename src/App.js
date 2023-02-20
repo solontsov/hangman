@@ -1,6 +1,9 @@
 import './App.css';
 
 import { Routes, Route, Link } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+
+import { hangmanRestart } from './store/hangman'
 
 import Hangman from './components/Hangman';
 import Word from './components/Word';
@@ -9,28 +12,33 @@ import Rules from './components/Rules';
 
 
 function App() {
+
+  const dispatch = useDispatch();
+
   return (
     <div className="App">
       <header className="App-header">
         {/* Heading */}
         <h1>Hangman game</h1>
 
-        {/* button HELP and RESTART */}
-        <nav>
-          <menu>
-            <Routes>
-              <Route exact path="/" element={<li><Link to="/rules"><button>HELP</button></Link></li>} />
-              <Route exact path="/rules" element={null} />
-            </Routes>
-            <li><Link to="/"><button>RESTART</button></Link></li>
-          </menu>
-        </nav>
         <Routes>
           {/* The rules describe which components will be visible based on routes/URLs */}
           <Route exact path="/" element={
             <>
+              {/* button HELP and RESTART */}
+              <nav>
+                <menu>
+                  <li><Link to="/rules"><button>HELP</button></Link></li>
+                  <li><button onClick={() => dispatch(hangmanRestart())}>RESTART</button></li>
+                </menu>
+              </nav>
+             
+              {/* the secret word */}
               <Word />
+              
+              {/* Hangman image */}
               <Hangman />
+              
               {/* depending on state show Alphabet or Win/Lost message TODO: */}
               <Alphabet />
             </>

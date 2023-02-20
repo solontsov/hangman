@@ -1,4 +1,5 @@
 // Component that shows how to play Hangman game.
+import { Link } from "react-router-dom";
 
 function Rules() {
   
@@ -8,6 +9,7 @@ function Rules() {
         <div style={{"width":"30%"}}>
             <h3>How to play Hangman game</h3>
             <p>{rules}</p>
+            <Link to="/"><button>Close</button></Link>
         </div>
     )
 }

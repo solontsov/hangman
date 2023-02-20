@@ -4,7 +4,7 @@ import { maxNumberOfErrors } from '../components/Hangman'
 
 const getInitialState = () => {
     // the word randomly chosen from dictionary TODO:
-    const secretWord = words[23];
+    const secretWord = words[23].toUpperCase();
 
     return {
         secretWord: secretWord, // the word to guess
@@ -22,7 +22,8 @@ export const hangmanSlice = createSlice({
     reducers: {
         // restarts the game
         hangmanRestart: (state) => {
-            state = getInitialState();
+            const newState = getInitialState();
+            for(var k in newState) state[k] = newState[k];
         },
 
         // change the state properties that depend on selected letter (action.payload)

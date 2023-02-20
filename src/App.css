@@ -23,7 +23,7 @@ menu {
   gap: 1em;
 }
 
-li > button {
+button {
   font-size: calc(10px + 1vmin);
 
 }
@@ -43,4 +43,14 @@ li > button {
 /* for Letters already used */
 .used {
   color: #282c34;
+}
+
+#word {
+  margin: 2em;
+}
+
+#word > div {
+  font-size: calc(10px + 2vmin);
+  display: inline-block;
+  margin: 0.2em;
 }
