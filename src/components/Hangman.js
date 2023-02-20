@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux'
+
 // Component - Hangman picture
 import img1 from '../images/state1.gif';
 import img2 from '../images/state2.gif';
@@ -16,8 +18,11 @@ const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img
 export const maxNumberOfErrors = images.length - 1; //
 
 function Hangman(){
+
+    const numberOfErrors = useSelector(state => state.hangman.numberOfErrors);
+
     return (
-        <img src={images[5]} alt="Hangman" />
+        <img src={images[numberOfErrors]} alt="Hangman" />
     )
 }
 

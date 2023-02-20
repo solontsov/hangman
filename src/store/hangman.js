@@ -3,8 +3,9 @@ import { words } from '../words';
 import { maxNumberOfErrors } from '../components/Hangman'
 
 const getInitialState = () => {
-    // the word randomly chosen from dictionary TODO:
-    const secretWord = words[23].toUpperCase();
+    // the word randomly chosen from dictionary
+    const randomIndex = Math.floor(Math.random() * words.length);
+    const secretWord = words[randomIndex].toUpperCase();
 
     return {
         secretWord: secretWord, // the word to guess
@@ -42,7 +43,7 @@ export const hangmanSlice = createSlice({
                         if (!state.lettersUsed.includes(currentSecretWordLetter)) {
                             break; //not all letters found
                         }
-                        if (index === state.secretWord.length) {
+                        if (index === state.secretWord.length-1) {
                             // the last letter of secretWord passed the test => the word is guessed 
                             state.gameResult = "You won!";
                         }

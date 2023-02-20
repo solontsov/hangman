@@ -2,8 +2,6 @@
   text-align: center;
 }
 
-
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -25,7 +23,6 @@ menu {
 
 button {
   font-size: calc(10px + 1vmin);
-
 }
 
 #alphabet {
@@ -36,7 +33,7 @@ button {
   font-size: calc(10px + 2vmin);
 }
 
-#alphabet > div {
+#alphabet>div {
   cursor: pointer;
 }
 
@@ -49,8 +46,12 @@ button {
   margin: 2em;
 }
 
-#word > div {
+#word>div {
   font-size: calc(10px + 2vmin);
   display: inline-block;
   margin: 0.2em;
+}
+
+img {
+  margin: 2em;
 }

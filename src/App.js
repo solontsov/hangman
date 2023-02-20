@@ -1,7 +1,7 @@
 import './App.css';
 
 import { Routes, Route, Link } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { hangmanRestart } from './store/hangman'
 
@@ -14,6 +14,7 @@ import Rules from './components/Rules';
 function App() {
 
   const dispatch = useDispatch();
+  const gameResult = useSelector(state => state.hangman.gameResult);
 
   return (
     <div className="App">
@@ -32,21 +33,19 @@ function App() {
                   <li><button onClick={() => dispatch(hangmanRestart())}>RESTART</button></li>
                 </menu>
               </nav>
-             
+
               {/* the secret word */}
               <Word />
-              
+
               {/* Hangman image */}
               <Hangman />
-              
-              {/* depending on state show Alphabet or Win/Lost message TODO: */}
-              <Alphabet />
+
+              {/* depending on state show Alphabet or Win/Lost message */}
+              {(gameResult === "") ? <Alphabet /> : <div style={{ fontSize: "calc(10px + 3vmin)" }}>{gameResult}</div>}
             </>
           } />
           <Route exact path="/rules" element={<Rules />} />
         </Routes>
-
-
       </header>
     </div>
   );
